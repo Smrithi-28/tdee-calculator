@@ -23,6 +23,26 @@ No login required, open to all
 
 ---
 
+
+
+Features
+
+
+
+Clean UI with responsive design
+
+Real-time input validation
+
+Fast API response using Cloud Functions
+
+Easily scalable and customizable
+
+Serverless and cost-effective architecture
+
+---
+
+
+
  How It Works
 
 1. User fills the form with age, gender, weight, height, and activity level.
@@ -58,23 +78,31 @@ Tech Stack
 
 ---
 
- Deployment Steps
- 
- 1. 📁 Upload Frontend to Cloud Storage (Optional)
-- Go to Google Cloud Console > Cloud Storage > Create Bucket
-- Upload `index.html`, `style.css`, and `script.js`
-- Set permissions to public (for test/demo)
+Deployment Steps
 
-2. ☁️ Deploy Backend using Cloud Functions
+1. 📁 Upload Frontend to Cloud Storage 
+Go to Google Cloud Console > Cloud Storage
 
- Deployment 
+Click "Create Bucket"
+
+Upload index.html 
+
+Set permissions to public (for testing/demo purposes)
+
+2. ☁️ Deploy Backend Using Cloud Functions
+Run the following command in Google Cloud Shell (Bash):
 ```bash
+
 gcloud functions deploy tdee_calculator \
 --runtime python311 \
 --trigger-http \
 --allow-unauthenticated \
 --entry-point tdee_calculator
+```
 
+This deploys the Python function defined in main.py
+
+After deployment, you'll receive a public HTTPS URL to connect your frontend with the backend.
 
 
 
