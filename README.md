@@ -56,6 +56,25 @@ Tech Stack
 
 ---
 
+---
+
+ Deployment Steps
+ 
+ 1. 📁 Upload Frontend to Cloud Storage (Optional)
+- Go to Google Cloud Console > Cloud Storage > Create Bucket
+- Upload `index.html`, `style.css`, and `script.js`
+- Set permissions to public (for test/demo)
+
+2. ☁️ Deploy Backend using Cloud Functions
+
+ Deployment 
+```bash
+gcloud functions deploy tdee_calculator \
+--runtime python311 \
+--trigger-http \
+--allow-unauthenticated \
+--entry-point tdee_calculator
+
 
 
 
