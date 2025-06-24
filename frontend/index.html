@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TDEE Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #e6f2ff;
+      --card: #ffffff;
+      --primary: #305f72;
+      --secondary: #99d98c;
+      --text: #222831;
+      --accent: #f26419;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background-color: var(--card);
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      text-align: center;
+      border: 2px solid var(--secondary);
+    }
+
+    h2 {
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    input, select, button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--secondary);
+      font-size: 15px;
+    }
+
+    button {
+      background-color: var(--primary);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: var(--accent);
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: var(--text);
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>TDEE Calculator</h2>
+    <form id="tdeeForm">
+      <label>Age: <input type="number" name="age" required /></label>
+      <label>Gender:
+        <select name="gender">
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </label>
+      <label>Weight (kg): <input type="number" name="weight" required /></label>
+      <label>Height (cm): <input type="number" name="height" required /></label>
+      <label>Activity Level:
+        <select name="activity">
+          <option value="1.2">Sedentary</option>
+          <option value="1.375">Lightly active</option>
+          <option value="1.55">Moderately active</option>
+          <option value="1.725">Very active</option>
+          <option value="1.9">Super active</option>
+        </select>
+      </label>
+      <button type="submit">✨ Calculate</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    document.getElementById('tdeeForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      const res = await fetch('https://asia-south1-tdee-calculator-project.cloudfunctions.net/tdee_calculator', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      document.getElementById('result').textContent = `🔥 Your TDEE is: ${result.tdee} calories/day`;
+    });
+  </script>
+</body>
+</html>
+
